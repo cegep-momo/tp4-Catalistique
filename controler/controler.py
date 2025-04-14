@@ -12,13 +12,13 @@ class Controler:
 
     def cleanup(self):
         self.view.cleanup()
-        
 
     def main(self):
         try:
             while True:
                 while self.model.started:
                     self.view.update(self.model.update())
+                    self.model.saveReading()
                     time.sleep(5)
                 time.sleep(0.1)
         except KeyboardInterrupt:

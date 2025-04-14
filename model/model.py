@@ -1,5 +1,5 @@
 from .platine import Platine
-import threading, time
+import threading, time, datetime, json
 
 class Model:
     def __init__(self, gpioStart, gpioRead):
@@ -33,3 +33,23 @@ class Model:
         self.potValue = self.platine.read_potentiometer()
 
         return self.potValue
+    
+    def saveReading(self):
+        if self.started:
+            now = datetime.datetime.now()
+            filename = "readings.json"
+            data = {
+                "timestamp": now.strftime("%Y-%m-%d %H:%M:%S"),
+                "value": self.potValue
+            }
+            try:
+                with open(filename, "r") as file:
+                    readings = json.load(file)
+            except FileNotFoundError:
+                with open(filename, "w") as file:
+                    readings = []
+                    json.dump(readings, file, indent=4)
+            finally:
+                with open(filename, "w") as file:
+                    readings.append(data)
+                    json.dump(readings, file, indent=4)
