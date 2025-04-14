@@ -9,7 +9,7 @@ class Mesure:
         return f"Mesure(date_time={self.date_time}, values={self.values})"
 
     def afficherMesure(self):
-        print(f"Date and Time: {self.date_time}")
-        print("Measurement Values:")
+        print(f"Date et heure: {self.date_time}")
+        print("Valeur des mesures:")
         for value in self.values:
             print(f" - {value}")
