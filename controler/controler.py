@@ -4,7 +4,7 @@ import time
 
 class Controler:
     def __init__(self, gpioStart, gpioRead):
-        self.model = Model(gpioStart, gpioRead)
+        self.model = Model(gpioStart, gpioRead, self)
         self.view = View()
         self.view.set_controler(self)
         self.model.start_thread_start()
@@ -13,8 +13,12 @@ class Controler:
     def cleanup(self):
         self.view.cleanup()
 
+    def updateView(self):
+        self.view.update(self.model.update())
+
     def main(self):
         try:
+            self.view.readingsOffScreen()
             while True:
                 while self.model.started:
                     self.view.update(self.model.update())
