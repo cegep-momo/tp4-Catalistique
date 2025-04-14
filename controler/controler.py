@@ -6,12 +6,13 @@ class Controler:
     def __init__(self, gpioStart, gpioRead):
         self.model = Model(gpioStart, gpioRead, self)
         self.view = View()
-        self.view.set_controler(self)
-        self.model.start_thread_start()
-        self.model.start_thread_read()
+        self.view.setControler(self)
+        self.model.startThreadStart()
+        self.model.startThreadRead()
 
     def cleanup(self):
         self.view.cleanup()
+        self.model.stoppingProgram = True
 
     def updateView(self):
         self.view.update(self.model.update())

@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 
 class Mesure:
     def __init__(self, date_time: datetime, values: list):
@@ -13,3 +14,18 @@ class Mesure:
         print("Valeur des mesures:")
         for value in self.values:
             print(f" - {value}")
+
+    def saveReading(self):
+        filename = "readings.json"
+        data = {
+            "date_time": self.date_time.strftime("%Y-%m-%d %H:%M:%S"),
+            "values": self.values
+        }
+        try:
+            with open(filename, "r") as file:
+                readings = json.load(file)
+        except FileNotFoundError:
+            readings = []
+        readings.append(data)
+        with open(filename, "w") as file:
+            json.dump(readings, file, indent=4)

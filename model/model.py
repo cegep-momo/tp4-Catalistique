@@ -1,4 +1,5 @@
 from .platine import Platine
+from .mesure import Mesure
 import threading, time, datetime, json
 
 class Model:
@@ -41,18 +42,5 @@ class Model:
         return self.potValue
     
     def saveReading(self):
-        if self.started:
-            now = datetime.datetime.now()
-            filename = "readings.json"
-            data = {
-                "timestamp": now.strftime("%Y-%m-%d %H:%M:%S"),
-                "value": self.potValue
-            }
-            try:
-                with open(filename, "r") as file:
-                    readings = json.load(file)
-            except FileNotFoundError:
-                readings = []
-            readings.append(data)
-            with open(filename, "w") as file:
-                json.dump(readings, file, indent=4)
+        measurement = Mesure(datetime.datetime.now(), [self.potValue])
+        measurement.saveReading()
