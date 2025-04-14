@@ -52,4 +52,4 @@ class Platine:
         Returns:
             float: The current potentiometer value as a float between 0 and 1.
         """
-        return self.gpioPot.value # * 3.3V ?
+        return self.gpioPot.value * 3.3

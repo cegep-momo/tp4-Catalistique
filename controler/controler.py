@@ -43,7 +43,7 @@ class Controler:
                     self.view.update(self.model.update())
                     self.model.saveReading()
                     self.model.platine.isReading = False
-                    time.sleep(1)
+                    time.sleep(5)
                 time.sleep(0.1)
         except KeyboardInterrupt:
             self.cleanup()
